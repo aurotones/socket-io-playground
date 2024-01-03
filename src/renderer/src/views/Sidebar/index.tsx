@@ -2,8 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import MainState from "../../interfaces/reducers/MainState";
 import InstanceItem from "./InstanceItem";
-import "./Sidebar.scss";
 import socketActions from "../../actions/socketActions";
+import Button from "../../components/Button";
+import "./Sidebar.scss";
 
 export default function Sidebar(){
     const dispatch = useDispatch();
@@ -14,14 +15,11 @@ export default function Sidebar(){
     }
 
     return (
-        <div className="sidebar flex flex-col">
+        <div className="sidebar flex flex-col select-none">
             <div className="p-4">
-                <div
-                    className="px-4 py-2 bg-blue-700 text-sm cursor-pointer rounded-lg text-center"
-                    onClick={createInstance}
-                >
+                <Button className="bg-blue-700" onClick={createInstance}>
                     Create instance
-                </div>
+                </Button>
             </div>
             <div className="liner"/>
             <div

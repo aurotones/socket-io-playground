@@ -1,5 +1,5 @@
-import Sidebar from "./components/Sidebar";
-import MainScreen from "./screens/MainScreen";
+import Sidebar from "./views/Sidebar";
+import MainScreen from "./views/MainScreen";
 
 function App(){
     return (

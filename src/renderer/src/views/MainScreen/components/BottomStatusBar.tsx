@@ -45,7 +45,7 @@ export default function BottomStatusBar(props: Props){
 
     return (
         <div className="px-4 py-2 text-xs bottom-status-bar">
-            <div className="opacity-70" style={{ color: status.labelColor }}>
+            <div className="opacity-80" style={{ color: status.labelColor }}>
                 <span>Status: { status.label }</span>
                 {
                     props.currentInstance.reason ? renderReason() : null

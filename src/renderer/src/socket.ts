@@ -1,4 +1,5 @@
 import io, { Socket } from "socket.io-client";
+
 import { store } from "./store";
 import socketActions from "./actions/socketActions";
 import { InstanceStatus } from "./interfaces/InstanceInterface";
@@ -15,25 +16,22 @@ export default class socket {
         const instance = io(uri, {
             ...opts,
             retries: 1,
+            forceNew: true,
         });
         instance.on("connect",() => {
+            instance.sendBuffer = [];
             socket.onConnect(id);
             const engine = instance.io.engine;
-
-            engine.once("upgrade",() => {
-                console.log(engine.transport.name);
-            });
-            engine.on("packet",({ type, data }) => {
-                console.log("Packet received from server!", type, data);
-            });
-            engine.on("packetCreate",({ type, data }) => {
-                console.log("Packet sent to server!", type, data);
+            engine.on("packet",({ data }) => {
+                console.log("Packet received from server!", data);
+                if (data){
+                    // @ts-ignore
+                    const decoded = window.api.decodePacket(data);
+                    store.dispatch(socketActions.onMsgReceive(id, decoded));
+                }
             });
             engine.on("drain",() => {
                 console.log("Write buffer is drained!");
-            });
-            engine.on("close",(reason) => {
-                socket.onDisconnect(id, reason);
             });
         });
         instance.on("disconnect",() => socket.onDisconnect(id));
@@ -45,18 +43,23 @@ export default class socket {
         store.dispatch(socketActions.setInstanceStatus(id, InstanceStatus.CONNECTING));
     }
 
+    private static getInstance(id: string): SocketWrapper["io"] {
+        let _instance = null;
+        socket.instances.forEach((instance) => {
+            if (!_instance && instance.id === id){
+                _instance = instance.io;
+            }
+        });
+        return _instance;
+    }
+
     public static disconnect(
         id: string,
         status: InstanceStatus,
         reason?: string,
     ){
-        socket.instances.every((instance) => {
-            if (instance.id === id){
-                instance.io.disconnect();
-                return true;
-            }
-            return false;
-        });
+        const instance = socket.getInstance(id);
+        instance.disconnect();
         socket.instances = socket.instances.filter((instance) => {
             return instance.id !== id;
         });
@@ -85,5 +88,11 @@ export default class socket {
         console.log("Socket connection error!");
         console.error(error.message);
         socket.disconnect(id, InstanceStatus.ERROR, error.message);
+    }
+
+    public static emitToServer(id: string, type: string, message: string | object){
+        console.log(socket.instances);
+        const instance = socket.getInstance(id);
+        instance.volatile.emit(type, message);
     }
 }

@@ -1,8 +1,10 @@
 import { useMemo } from "react";
 import InstanceInterface, {InstanceStatus} from "../../../interfaces/InstanceInterface";
 import colors from "tailwindcss/colors";
+import Button from "../../../components/Button";
 
 interface Props {
+    disabled: boolean,
     currentInstance: InstanceInterface,
     submit: () => void,
 }
@@ -30,12 +32,12 @@ export default function SubmitButton(props: Props){
     },[props.currentInstance?.status]);
 
     return (
-        <div
-            className="px-4 py-2 text-sm cursor-pointer rounded-lg"
+        <Button
             style={buttonState.style}
+            disabled={props.disabled}
             onClick={props.submit}
         >
             { buttonState.label }
-        </div>
+        </Button>
     )
 }

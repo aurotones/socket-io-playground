@@ -14,7 +14,7 @@ export default function Tabs(props: Props){
         return (
             <div
                 key={`tab-${index}`}
-                className={classNames("item px-5 py-3 text-sm",{
+                className={classNames("item px-5 py-3 text-xs select-none",{
                     active,
                 })}
                 onClick={() => props.onTabChange(index)}
