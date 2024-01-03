@@ -1,13 +1,23 @@
-import { contextBridge } from "electron";
+import { Notification, contextBridge } from "electron";
 import { electronAPI } from "@electron-toolkit/preload";
 
-const api = {};
+const api = {
+    test: () => {
+        const NOTIFICATION_TITLE = "Basic Notification";
+        const NOTIFICATION_BODY = "Notification from the Main process";
+
+        new Notification({
+            title: NOTIFICATION_TITLE,
+            body: NOTIFICATION_BODY
+        }).show();
+    }
+};
 
 if (process.contextIsolated){
     try {
         contextBridge.exposeInMainWorld("electron", electronAPI);
         contextBridge.exposeInMainWorld("api", api);
-    } catch (error) {
+    } catch (error){
         console.error(error)
     }
 } else {

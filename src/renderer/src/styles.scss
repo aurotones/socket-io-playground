@@ -20,3 +20,17 @@ html, body {
     color: var(--color-text);
     background: var(--color-background);
 }
+
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.liner {
+    height: 1px;
+    background: #333;
+}
