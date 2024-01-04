@@ -39,5 +39,8 @@ appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
 publish:
-  provider: generic
-  url: https://example.com/auto-updates
+  provider: github
+  repo: socket-io-playground
+  owner: aurotones
+  protocol: https
+  releaseType: draft
