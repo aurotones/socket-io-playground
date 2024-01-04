@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: my-app
+appId: com.aurotones.socket-io-playground
+productName: Socket.io Client Playground
 directories:
   buildResources: build
 files:
@@ -12,7 +12,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: my-app
+  executableName: Socket.io Playground
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

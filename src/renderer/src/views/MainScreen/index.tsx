@@ -86,7 +86,7 @@ export default function MainScreen(){
                 <Input
                     value={currentInstance.uri}
                     disabled={disableInput}
-                    placeholder="localhost:8000"
+                    placeholder="http://localhost:8000"
                     onChangeText={socketUriHandler}
                 />
                 <div className="w-4"/>

@@ -34,3 +34,16 @@ html, body {
     height: 1px;
     background: #333;
 }
+
+.liner-v {
+    width: 1px;
+    height: 16px;
+    background: #333;
+}
+
+.cm-theme {
+    .cm-gutters {
+        padding: 0 5px;
+        user-select: none;
+    }
+}

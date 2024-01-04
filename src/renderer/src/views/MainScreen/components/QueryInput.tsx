@@ -58,17 +58,21 @@ export default function QueryInput(props: Props){
     return (
         <div>
             <div className="flex mt-1 mb-3">
-                <Input
-                    value={name}
-                    placeholder="Name"
-                    onChangeText={setName}
-                />
+                <div style={{ flex: 1 }}>
+                    <Input
+                        value={name}
+                        placeholder="Name"
+                        onChangeText={setName}
+                    />
+                </div>
                 <div className="w-3"/>
-                <Input
-                    value={value}
-                    placeholder="Value"
-                    onChangeText={setValue}
-                />
+                <div style={{ flex: 2 }}>
+                    <Input
+                        value={value}
+                        placeholder="Value"
+                        onChangeText={setValue}
+                    />
+                </div>
                 <div className="w-3"/>
                 <Button
                     disabled={disableButton}

@@ -73,6 +73,20 @@ export default function (state = initialState, action: ReducerAction){
                 }
             }
             return state;
+        case REDUCER_CONSTANTS.SOCKET_SET_OPTS:
+            if (typeof state.activeInstance === "number"){
+                const instances = state.instances.slice();
+                instances.forEach((instance, i) => {
+                    if (state.activeInstance === i){
+                        instance.options = action.payload;
+                    }
+                });
+                return {
+                    ...state,
+                    instances,
+                }
+            }
+            return state;
         default:
             return state;
     }

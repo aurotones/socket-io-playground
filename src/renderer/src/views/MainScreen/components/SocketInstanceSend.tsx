@@ -20,7 +20,7 @@ export default function SocketInstanceSend(props: Props){
     },[
         type,
         message,
-    ])
+    ]);
 
     const emitToServer = () => {
         if (disableSubmit){

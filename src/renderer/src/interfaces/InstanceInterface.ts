@@ -15,6 +15,11 @@ interface InstanceInterface {
     opts?: Partial<ManagerOptions & SocketOptions>,
     status?: InstanceStatus,
     reason?: string,
+    options: {
+        preserveMessages?: boolean,
+        limitMessages?: number,
+        scrollToEnd?: boolean,
+    },
 }
 
 export default InstanceInterface;

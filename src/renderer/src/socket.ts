@@ -1,8 +1,9 @@
 import io, { Socket } from "socket.io-client";
-
+import { sanitizeUrl } from "@braintree/sanitize-url";
 import { store } from "./store";
 import socketActions from "./actions/socketActions";
 import { InstanceStatus } from "./interfaces/InstanceInterface";
+import formatUrl from "./utils/formatUrl";
 
 interface SocketWrapper {
     id: string,
@@ -13,34 +14,56 @@ export default class socket {
     static instances: SocketWrapper[] = [];
 
     public static connect(id: string, uri: string, opts: any){
-        const instance = io(uri, {
-            ...opts,
-            retries: 1,
-            forceNew: true,
-        });
-        instance.on("connect",() => {
-            instance.sendBuffer = [];
-            socket.onConnect(id);
-            const engine = instance.io.engine;
-            engine.on("packet",({ data }) => {
-                console.log("Packet received from server!", data);
-                if (data){
-                    // @ts-ignore
-                    const decoded = window.api.decodePacket(data);
-                    store.dispatch(socketActions.onMsgReceive(id, decoded));
-                }
-            });
-            engine.on("drain",() => {
-                console.log("Write buffer is drained!");
-            });
-        });
-        instance.on("disconnect",() => socket.onDisconnect(id));
-        instance.on("connect_error",(err) => socket.onConnectionError(id, err));
-        socket.instances.push({
+        const instanceIndex = socket.instances.push({
             id,
-            io: instance,
+            io: io(sanitizeUrl(formatUrl(uri)), opts),
         });
+        socket.instances[instanceIndex - 1].io.on("connect",() => {
+            socket.instances[instanceIndex - 1].io.sendBuffer = [];
+            socket.onConnect(id);
+            const engine = socket.instances[instanceIndex - 1].io.io.engine;
+            engine.on("packet",({ data }) => {
+                socket.decodeData(id, data);
+            });
+        });
+        socket.instances[instanceIndex - 1].io.on(
+            "disconnect",
+            () => socket.onDisconnect(id),
+        );
+        socket.instances[instanceIndex - 1].io.on(
+            "connect_error",
+            (err) => socket.onConnectionError(id, err),
+        );
         store.dispatch(socketActions.setInstanceStatus(id, InstanceStatus.CONNECTING));
+    }
+
+    private static decodeData(id: string, data: any){
+        if (data){
+            console.log("Packet received from server!", data);
+            const decoded = window.api.decodePacket(data);
+            console.log("Packet decoded:", decoded);
+            switch (decoded.type){
+                case "ping":
+                case "message":
+                    store.dispatch(socketActions.onMsgReceive(id, decoded));
+                    break;
+                case "upgrade":
+                    if (typeof decoded.data === "string" && decoded.data.includes("1-")){
+                        store.dispatch(
+                            socketActions.onMsgReceive(
+                                id,
+                                {
+                                    ...decoded,
+                                    data: decoded.data.replace("1-",""),
+                                },
+                            ),
+                        );
+                    } else {
+                        socket.decodeData(id, decoded.data);
+                    }
+                    break;
+            }
+        }
     }
 
     private static getInstance(id: string): SocketWrapper["io"] {
@@ -64,7 +87,6 @@ export default class socket {
             return instance.id !== id;
         });
         store.dispatch(socketActions.setInstanceStatus(id, status, reason));
-        console.log(socket.instances);
     }
 
     // public static destroy(id: string){
@@ -82,6 +104,11 @@ export default class socket {
     private static onDisconnect(id: string, reason?: string){
         console.log("Socket disconnect!");
         socket.disconnect(id, InstanceStatus.IDLE, reason);
+        store.getState().main.instances.forEach((instance) => {
+            if (!instance.options.preserveMessages){
+                store.dispatch(socketActions.clearMessages(instance.id));
+            }
+        });
     }
 
     private static onConnectionError(id: string, error: Error){
@@ -91,7 +118,6 @@ export default class socket {
     }
 
     public static emitToServer(id: string, type: string, message: string | object){
-        console.log(socket.instances);
         const instance = socket.getInstance(id);
         instance.volatile.emit(type, message);
     }

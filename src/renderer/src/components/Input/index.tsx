@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import {useMemo} from "react";
+import usePropsExcept from "../../hooks/usePropsExcept";
 
 interface Props {
     style?: any,
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default function Input(props: Props){
+    const filteredProps = usePropsExcept(props,["onChangeText"]);
 
     const _classNames = useMemo(() => {
         let value = "input-cont";
@@ -27,7 +29,7 @@ export default function Input(props: Props){
             })}
         >
             <input
-                {...props}
+                {...filteredProps}
                 disabled={props.disabled}
                 className="flex-1 text-sm"
                 value={props.value}

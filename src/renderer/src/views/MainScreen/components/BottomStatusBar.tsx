@@ -44,12 +44,18 @@ export default function BottomStatusBar(props: Props){
     }
 
     return (
-        <div className="px-4 py-2 text-xs bottom-status-bar">
+        <div className="flex px-4 py-2 text-xs bottom-status-bar">
             <div className="opacity-80" style={{ color: status.labelColor }}>
                 <span>Status: { status.label }</span>
                 {
                     props.currentInstance.reason ? renderReason() : null
                 }
+            </div>
+            <div className="flex-1"/>
+            <div className="opacity-60">
+                <a href="https://github.com/aurotones" target="_blank">
+                    Made by Aurotones
+                </a>
             </div>
         </div>
     )

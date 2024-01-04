@@ -5,7 +5,7 @@ import { decodePacket } from "engine.io-parser";
 const api = {
     decodePacket: (encodedData: string) => {
         return decodePacket(encodedData);
-    }
+    },
 };
 
 if (process.contextIsolated){
@@ -17,7 +17,7 @@ if (process.contextIsolated){
     }
 } else {
     // @ts-ignore (define in dts)
-    window.electron = electronAPI
+    window.electron = electronAPI;
     // @ts-ignore (define in dts)
-    window.api = api
+    window.api = api;
 }

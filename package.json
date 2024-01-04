@@ -17,16 +17,21 @@
     "build:linux": "electron-vite build && electron-builder --linux --config"
   },
   "dependencies": {
+    "@braintree/sanitize-url": "^7.0.0",
+    "@codemirror/lang-json": "^6.0.1",
     "@electron-toolkit/preload": "^2.0.0",
     "@electron-toolkit/utils": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@reduxjs/toolkit": "^2.0.1",
+    "@uiw/codemirror-themes": "^4.21.21",
+    "@uiw/react-codemirror": "^4.21.21",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "clsx": "^2.0.0",
     "electron-updater": "^6.1.1",
     "lucide-react": "^0.303.0",
     "moment": "^2.30.1",
+    "nanoevents": "^9.0.0",
     "query-string": "^8.1.0",
     "react-ink": "^6.5.4",
     "react-json-editor-ajrm": "^2.5.14",
@@ -34,6 +39,7 @@
     "socket.io-client": "^4.7.2",
     "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7",
+    "url-parse": "^1.5.10",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
@@ -42,6 +48,7 @@
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@types/react-json-editor-ajrm": "^2.5.6",
+    "@types/url-parse": "^1.4.11",
     "@types/uuid": "^9.0.7",
     "@vitejs/plugin-react": "^4.0.4",
     "autoprefixer": "^10.4.16",

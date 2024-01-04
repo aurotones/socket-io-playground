@@ -36,15 +36,7 @@ export default function SocketInstance(props: Props){
                 value={tabIndex}
                 onTabChange={setTabIndex}
             />
-            <div
-                className="flex-1"
-                style={{
-                    height: 0,
-                    overflowY: "auto",
-                }}
-            >
-                { renderTabView() }
-            </div>
+            { renderTabView() }
         </div>
     )
 }
