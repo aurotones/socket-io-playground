@@ -1,6 +1,6 @@
 {
   "name": "socket-io-playground",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "An Electron application with React and TypeScript",
   "main": "./out/main/index.js",
   "author": "Uuganbayar O. <aurotones@gmail.com>",
