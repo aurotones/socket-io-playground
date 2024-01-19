@@ -63,7 +63,7 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 20
-      - name: install dependencies
+      - name: install node dependencies
         run: npm install
       - name: build
         run: npm run release
