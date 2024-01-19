@@ -20,7 +20,6 @@
     "build:win": "npm run build && electron-builder --win --config",
     "build:mac": "electron-vite build && electron-builder --mac --config",
     "build:linux": "electron-vite build && electron-builder --linux --config",
-    "release": "electron-vite build && electron-builder",
     "np": "np"
   },
   "dependencies": {
@@ -77,7 +76,7 @@
     "yolo": true,
     "tests": false,
     "publish": false,
-    "releaseDraft": false,
+    "releaseDraft": true,
     "branch": "main"
   }
 }

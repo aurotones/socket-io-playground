@@ -43,3 +43,4 @@ publish:
   owner: aurotones
   protocol: https
   releaseType: draft
+  private: true
