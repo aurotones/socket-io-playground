@@ -4,6 +4,7 @@
   "description": "An Electron application with React and TypeScript",
   "main": "./out/main/index.js",
   "author": "Uuganbayar O. <aurotones@gmail.com>",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/aurotones/socket-io-playground.git"
@@ -20,7 +21,7 @@
     "build:mac": "electron-vite build && electron-builder --mac --config",
     "build:linux": "electron-vite build && electron-builder --linux --config",
     "release": "electron-vite build && electron-builder",
-    "publish": "np"
+    "np": "np"
   },
   "dependencies": {
     "@braintree/sanitize-url": "^7.0.0",
@@ -73,9 +74,11 @@
   "np": {
     "yarn": false,
     "anyBranch": false,
+    "yolo": true,
     "tests": false,
     "publish": false,
     "releaseDraft": false,
+    "tag": "build",
     "branch": "main"
   }
 }
