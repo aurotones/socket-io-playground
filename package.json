@@ -78,7 +78,6 @@
     "tests": false,
     "publish": false,
     "releaseDraft": false,
-    "tag": "build",
     "branch": "main"
   }
 }
