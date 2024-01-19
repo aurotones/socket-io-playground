@@ -56,41 +56,41 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@master
         with:
           node-version: 20
       - name: install dependencies
         run: npm install
       - name: build
-        run: npm run build:linux
+        run: npm run release
 
-  build_on_mac:
-    runs-on: macos-latest
-    needs: check_typescript
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@master
-        with:
-          node-version: 20
-      - name: install dependencies
-        run: npm install
-      - name: build
-        run: npm run build:mac
-
-  build_on_win:
-    runs-on: windows-latest
-    needs: check_typescript
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@master
-        with:
-          node-version: 20
-      - name: install dependencies
-        run: npm install
-      - name: build
-        run: npm run build:win
+#  build_on_mac:
+#    runs-on: macos-latest
+#    needs: check_typescript
+#    env:
+#      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: actions/setup-node@master
+#        with:
+#          node-version: 20
+#      - name: install dependencies
+#        run: npm install
+#      - name: build
+#        run: npm run release
+#
+#  build_on_win:
+#    runs-on: windows-latest
+#    needs: check_typescript
+#    env:
+#      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: actions/setup-node@master
+#        with:
+#          node-version: 20
+#      - name: install dependencies
+#        run: npm install
+#      - name: build
+#        run: npm run release
