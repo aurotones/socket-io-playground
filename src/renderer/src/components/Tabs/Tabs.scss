@@ -1,0 +1,22 @@
+.tabs {
+    border-bottom: 1px solid #333;
+    .item {
+        color: #666;
+        border-left: 1px solid transparent;
+        border-right: 1px solid transparent;
+        cursor: pointer;
+        &.active {
+            color: #fff;
+            border-left: 1px solid #333;
+            border-right: 1px solid #333;
+            border-bottom: none;
+        }
+        &:first-child {
+            border-left: none;
+            &.active {
+                color: #fff;
+                border-left: none;
+            }
+        }
+    }
+}

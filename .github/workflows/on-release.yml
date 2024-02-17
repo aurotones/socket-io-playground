@@ -1,0 +1,109 @@
+name: Release
+on:
+  release:
+    types:
+      - created
+  push:
+    tags:
+      - 'v*'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check_dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@master
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Check package & dependencies
+        run: npm install
+
+  check_typescript:
+    runs-on: ubuntu-latest
+    needs: check_dependencies
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@master
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Check package & dependencies
+        run: npm run typecheck
+
+  build_on_linux:
+    runs-on: ubuntu-latest
+    needs: check_typescript
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: install node dependencies
+        run: npm install
+      - name: build
+        run: |
+          npm run publish:linux-x86
+          npm run publish:linux-arm
+
+  build_on_mac:
+    runs-on: macos-latest
+    needs: check_typescript
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: install dependencies
+        run: npm install
+      - name: build
+        run: |
+          npm run publish:mac-x86
+          npm run publish:mac-arm
+
+  build_on_win:
+    runs-on: windows-latest
+    needs: check_typescript
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: install dependencies
+        run: npm install
+      - name: build
+        run: |
+          npm run publish:win-x86
+          npm run publish:win-arm
