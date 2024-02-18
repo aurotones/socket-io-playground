@@ -1,28 +1,58 @@
 import { join } from "path";
 import { app, shell, screen, BrowserWindow } from "electron";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
+import BrowserWindowConstructorOptions = Electron.BrowserWindowConstructorOptions;
 import icon from "../../build/icon.png?asset";
-
-console.log("Crash dump path:", app.getPath("crashDumps"));
 
 async function createWindow(): Promise<void> {
     const { width, height } = screen.getPrimaryDisplay().workAreaSize;
 
-    const mainWindow = new BrowserWindow({
+    let options: BrowserWindowConstructorOptions = {
         minWidth: 900,
         minHeight: 670,
         width: width,
         height: height,
         show: false,
         autoHideMenuBar: true,
-        ...(process.platform === "linux" ? {
-            icon,
-        } : {}),
         webPreferences: {
             preload: join(__dirname, "../preload/index.js"),
-            sandbox: true,
+            sandbox: false,
+            contextIsolation: true,
         },
-    });
+    }
+    switch (process.platform){
+        case "darwin":
+            options = {
+                ...options,
+                webPreferences: {
+                    preload: join(__dirname, "../preload/index.js"),
+                    sandbox: true,
+                },
+            }
+            break;
+        case "linux":
+            options = {
+                ...options,
+                icon: icon,
+                webPreferences: {
+                    preload: join(__dirname, "../preload/index.js"),
+                    sandbox: false,
+                    contextIsolation: true,
+                },
+            }
+            break;
+        case "win32":
+            options = {
+                ...options,
+                webPreferences: {
+                    preload: join(__dirname, "../preload/index.js"),
+                    sandbox: false,
+                    contextIsolation: true,
+                },
+            }
+    }
+
+    const mainWindow = new BrowserWindow(options);
 
     mainWindow.on("ready-to-show",() => {
         mainWindow.show();
@@ -63,8 +93,6 @@ async function createWindow(): Promise<void> {
         }
     );
 }
-
-app.enableSandbox();
 
 app.whenReady().then(async () => {
     electronApp.setAppUserModelId("com.aurotones.socket-io-playground");
