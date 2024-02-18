@@ -88,6 +88,11 @@ jobs:
           node-version: 20
       - name: install dependencies
         run: npm install
+      - uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: "app.provisionprofile"
+          fileDir: "./build"
+          encodedString: ${{ secrets.PROVISION_PROFILE_FILE_BASE64 }}
       - name: build
         run: |
           npm run publish:mac-x86
