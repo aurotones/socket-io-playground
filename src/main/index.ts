@@ -13,7 +13,9 @@ async function createWindow(): Promise<void> {
         height: height,
         show: false,
         autoHideMenuBar: true,
-        ...(process.platform === "linux" ? {icon} : {}),
+        ...(process.platform === "linux" ? {
+            icon,
+        } : {}),
         webPreferences: {
             preload: join(__dirname, "../preload/index.js"),
             sandbox: false
@@ -60,8 +62,12 @@ async function createWindow(): Promise<void> {
     );
 }
 
+if (process.platform === "linux"){
+    app.commandLine.appendSwitch("--no-sandbox");
+}
+
 app.whenReady().then(async () => {
-    electronApp.setAppUserModelId("com.electron")
+    electronApp.setAppUserModelId("com.electron");
     app.on("browser-window-created",(_, window) => {
         optimizer.watchWindowShortcuts(window);
     });
