@@ -20,8 +20,8 @@ async function createWindow(): Promise<void> {
         } : {}),
         webPreferences: {
             preload: join(__dirname, "../preload/index.js"),
-            sandbox: false
-        }
+            sandbox: true,
+        },
     });
 
     mainWindow.on("ready-to-show",() => {
@@ -64,12 +64,10 @@ async function createWindow(): Promise<void> {
     );
 }
 
-if (process.platform === "linux"){
-    app.commandLine.appendSwitch("--no-sandbox");
-}
+app.enableSandbox();
 
 app.whenReady().then(async () => {
-    electronApp.setAppUserModelId("com.electron");
+    electronApp.setAppUserModelId("com.aurotones.socket-io-playground");
     app.on("browser-window-created",(_, window) => {
         optimizer.watchWindowShortcuts(window);
     });
