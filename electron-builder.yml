@@ -25,6 +25,8 @@ mac:
   icon: resources/icon.icns
   entitlements: build/default.mac.plist
   entitlementsInherit: build/default.mac.plist
+  extendInfo:
+    ElectronTeamID: B4YA4PZW2Q
   notarize:
     teamId: B4YA4PZW2Q
   target:
