@@ -23,7 +23,8 @@ nsis:
 mac:
   category: public.app-category.developer-tools
   icon: resources/icon.icns
-  notarize: false
+  entitlements: build/default.mac.plist
+  entitlementsInherit: build/default.mac.plist
   target:
     - dmg
 dmg:
