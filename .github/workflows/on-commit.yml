@@ -75,6 +75,9 @@ jobs:
   test_build_on_mac:
     runs-on: macos-latest
     needs: check_typescript
+    env:
+      CSC_LINK: ${{ secrets.CSC_LINK }}
+      CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

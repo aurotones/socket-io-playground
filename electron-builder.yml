@@ -31,6 +31,7 @@ mac:
     teamId: B4YA4PZW2Q
   target:
     - dmg
+  provisioningProfile: build/app.provisionprofile
 dmg:
   artifactName: ${name}-${version}-macos-${arch}.${ext}
 linux:
