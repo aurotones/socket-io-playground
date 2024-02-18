@@ -20,47 +20,54 @@ async function createWindow(): Promise<void> {
         }
     });
 
-    mainWindow.on("ready-to-show", () => {
+    mainWindow.on("ready-to-show",() => {
         mainWindow.show();
     });
 
     mainWindow.webContents.setWindowOpenHandler((details) => {
-        shell.openExternal(details.url)
+        shell.openExternal(details.url);
         return {
             action: "deny",
         }
     });
 
     if (is.dev && process.env["ELECTRON_RENDERER_URL"]) {
-        await mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"])
+        await mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"]);
     } else {
-        await mainWindow.loadFile(join(__dirname, "../renderer/index.html"))
+        await mainWindow.loadFile(join(__dirname, "../renderer/index.html"));
     }
 
     mainWindow.webContents.session.webRequest.onBeforeSendHeaders(
         (details, callback) => {
-            callback({ requestHeaders: { Origin: '*', ...details.requestHeaders } });
+            callback({
+                requestHeaders: {
+                    Origin: "*",
+                    ...details.requestHeaders,
+                }
+            });
         },
     );
 
-    mainWindow.webContents.session.webRequest.onHeadersReceived((details, callback) => {
-        callback({
-            responseHeaders: {
-                'Access-Control-Allow-Origin': ['*'],
-                ...details.responseHeaders,
-            },
-        });
-    });
+    mainWindow.webContents.session.webRequest.onHeadersReceived(
+        (details, callback) => {
+            callback({
+                responseHeaders: {
+                    "Access-Control-Allow-Origin": ["*"],
+                    ...details.responseHeaders,
+                },
+            });
+        }
+    );
 }
 
 app.whenReady().then(async () => {
     electronApp.setAppUserModelId("com.electron")
     app.on("browser-window-created",(_, window) => {
-        optimizer.watchWindowShortcuts(window)
-    })
+        optimizer.watchWindowShortcuts(window);
+    });
     await createWindow();
 });
 
 app.on("window-all-closed",() => {
-    app.quit()
+    app.quit();
 });

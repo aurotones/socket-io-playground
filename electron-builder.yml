@@ -25,6 +25,8 @@ mac:
   icon: resources/icon.icns
   entitlements: build/default.mac.plist
   entitlementsInherit: build/default.mac.plist
+  hardenedRuntime: true
+  gatekeeperAssess: false
   extendInfo:
     ElectronTeamID: B4YA4PZW2Q
   notarize:
@@ -32,14 +34,18 @@ mac:
   target:
     - dmg
   provisioningProfile: build/app.provisionprofile
+mas:
+  type: distribution,
+  category: public.app-category.developer-tools
+  entitlements: build/default.mas.plist
+  icon: resources/icon.icns
 dmg:
   artifactName: ${name}-${version}-macos-${arch}.${ext}
 linux:
   target:
     - AppImage
     - deb
-  maintainer: aurotones.com
-  category: Utility
+  category: Development
   artifactName: ${name}-${version}-linux-${arch}.${ext}
 npmRebuild: false
 publish:
