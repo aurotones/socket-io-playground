@@ -25,6 +25,8 @@ mac:
   icon: resources/icon.icns
   entitlements: build/default.mac.plist
   entitlementsInherit: build/default.mac.plist
+  notarize:
+    teamId: B4YA4PZW2Q
   target:
     - dmg
 dmg:
