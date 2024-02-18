@@ -54,5 +54,5 @@ publish:
   provider: github
   repo: socket-io-playground
   owner: aurotones
-  releaseType: draft
+  releaseType: release
   publishAutoUpdate: false
