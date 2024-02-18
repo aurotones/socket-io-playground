@@ -35,7 +35,7 @@ mac:
     - dmg
   provisioningProfile: build/app.provisionprofile
 mas:
-  type: distribution,
+  type: development
   category: public.app-category.developer-tools
   entitlements: build/default.mas.plist
   icon: resources/icon.icns
