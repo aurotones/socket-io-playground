@@ -13,8 +13,9 @@ asarUnpack:
   - resources/**
 win:
   executableName: socket-io-playground
+  icon: build/icon.ico
   target:
-    - nsis
+    - zip
 nsis:
   artifactName: ${name}-${version}-win-${arch}-setup.${ext}
   shortcutName: ${productName}
@@ -22,7 +23,7 @@ nsis:
   createDesktopShortcut: always
 mac:
   category: public.app-category.developer-tools
-  icon: resources/icon.icns
+  icon: build/icon.icns
   entitlements: build/default.mac.plist
   entitlementsInherit: build/default.mac.plist
   hardenedRuntime: true
@@ -38,7 +39,7 @@ mas:
   type: development
   category: public.app-category.developer-tools
   entitlements: build/default.mas.plist
-  icon: resources/icon.icns
+  icon: build/icon.icns
 dmg:
   artifactName: ${name}-${version}-macos-${arch}.${ext}
 linux:

@@ -1,7 +1,7 @@
 import { join } from "path";
 import { app, shell, screen, BrowserWindow } from "electron";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
-import icon from "../../resources/icon.png?asset";
+import icon from "../../build/icon.png?asset";
 
 console.log("Crash dump path:", app.getPath("crashDumps"));
 
