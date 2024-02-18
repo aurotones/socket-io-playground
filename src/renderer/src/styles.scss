@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html[data-theme="light"] {
+    --color-text: #000;
+    --color-background: #fff;
+}
+
+html[data-theme="dark"] {
+    --color-text: #fff;
+    --color-background: #1e1e1e;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--color-text);
+    background: var(--color-background);
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.liner {
+    height: 1px;
+    background: #333;
+}
+
+.liner-v {
+    width: 1px;
+    height: 16px;
+    background: #333;
+}
+
+.cm-theme {
+    .cm-gutters {
+        padding: 0 5px;
+        user-select: none;
+    }
+}
