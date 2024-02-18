@@ -21,35 +21,12 @@ async function createWindow(): Promise<void> {
         },
     }
     switch (process.platform){
-        case "darwin":
-            options = {
-                ...options,
-                webPreferences: {
-                    preload: join(__dirname, "../preload/index.js"),
-                    sandbox: true,
-                },
-            }
-            break;
         case "linux":
             options = {
                 ...options,
                 icon: icon,
-                webPreferences: {
-                    preload: join(__dirname, "../preload/index.js"),
-                    sandbox: false,
-                    contextIsolation: true,
-                },
             }
             break;
-        case "win32":
-            options = {
-                ...options,
-                webPreferences: {
-                    preload: join(__dirname, "../preload/index.js"),
-                    sandbox: false,
-                    contextIsolation: true,
-                },
-            }
     }
 
     const mainWindow = new BrowserWindow(options);
