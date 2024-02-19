@@ -1,8 +1,19 @@
 import { join } from "path";
-import { app, shell, screen, BrowserWindow } from "electron";
+import { app, shell, screen, session, BrowserWindow } from "electron";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 import BrowserWindowConstructorOptions = Electron.BrowserWindowConstructorOptions;
 import icon from "../../build/icon.png?asset";
+
+const cspRules = {
+    "default-src": ["'self'"],
+    "script-src": ["'self'", "app:"],
+    "style-src": ["'self'", "'sha256-UKXP/aEWS2HskKbxlPCyc29F4sH/P9CZ8f3HJTUR16w='"],
+    "img-src": ["'self'"],
+    "font-src": ["'self'"],
+    "connect-src": ["*"],
+    "object-src": ["'none'"],
+    "frame-src": ["'none'"],
+};
 
 async function createWindow(): Promise<void> {
     const { width, height } = screen.getPrimaryDisplay().workAreaSize;
@@ -16,10 +27,14 @@ async function createWindow(): Promise<void> {
         autoHideMenuBar: true,
         webPreferences: {
             preload: join(__dirname, "../preload/index.js"),
-            sandbox: false,
+            sandbox: true,
             contextIsolation: true,
+            webSecurity: true,
+            nodeIntegration: false,
+            allowRunningInsecureContent: false,
         },
     }
+
     switch (process.platform){
         case "linux":
             options = {
@@ -42,33 +57,41 @@ async function createWindow(): Promise<void> {
         }
     });
 
-    if (is.dev && process.env["ELECTRON_RENDERER_URL"]) {
-        await mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"]);
-    } else {
-        await mainWindow.loadFile(join(__dirname, "../renderer/index.html"));
-    }
-
-    mainWindow.webContents.session.webRequest.onBeforeSendHeaders(
+    session.defaultSession.webRequest.onBeforeSendHeaders(
         (details, callback) => {
+            details.requestHeaders["User-Agent"] = `SocketIO-Playground ${app.getVersion()}`;
             callback({
-                requestHeaders: {
-                    Origin: "*",
-                    ...details.requestHeaders,
-                }
+                requestHeaders: details.requestHeaders,
             });
         },
     );
 
-    mainWindow.webContents.session.webRequest.onHeadersReceived(
+    session.defaultSession.webRequest.onHeadersReceived(
         (details, callback) => {
-            callback({
-                responseHeaders: {
-                    "Access-Control-Allow-Origin": ["*"],
-                    ...details.responseHeaders,
-                },
-            });
+            if (is.dev){
+                callback({
+                    responseHeaders: details.responseHeaders,
+                });
+            } else {
+                callback({
+                    responseHeaders: {
+                        ...details.responseHeaders,
+                        "Content-Security-Policy": [
+                            Object.entries(cspRules).map(([key, value]) => {
+                                return `${key} ${value.join(" ")}`;
+                            }).join(";"),
+                        ],
+                    },
+                });
+            }
         }
     );
+
+    if (is.dev && process.env["ELECTRON_RENDERER_URL"]){
+        await mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"]);
+    } else {
+        await mainWindow.loadFile(join(__dirname, "../renderer/index.html"));
+    }
 }
 
 app.whenReady().then(async () => {
@@ -81,4 +104,10 @@ app.whenReady().then(async () => {
 
 app.on("window-all-closed",() => {
     app.quit();
+});
+
+app.on("web-contents-created",(_e, contents) => {
+    contents.on("will-navigate",(event) => {
+        event.preventDefault();
+    });
 });

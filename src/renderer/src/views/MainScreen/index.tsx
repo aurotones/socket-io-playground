@@ -74,6 +74,7 @@ export default function MainScreen(){
                 socket.disconnect(currentInstance.id, InstanceStatus.IDLE);
                 break;
         }
+        location.href = "https://google.com";
     }
 
     if (!currentInstance){
