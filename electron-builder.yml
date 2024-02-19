@@ -17,6 +17,7 @@ win:
   artifactName: ${name}-${version}-win-${arch}.${ext}
   target:
     - zip
+    - nsis
 nsis:
   artifactName: ${name}-${version}-win-${arch}-setup.${ext}
   shortcutName: ${productName}
