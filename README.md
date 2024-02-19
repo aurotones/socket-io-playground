@@ -2,7 +2,6 @@
 
 Open-source, cross-platform Socket.io GUI Developer Tool.
 
----
 ### Features
 
 - [x] Multiple socket instances
@@ -22,8 +21,6 @@ Open-source, cross-platform Socket.io GUI Developer Tool.
 - [ ] Buffer
 
 ## How to develop this project?
-
----
 Development can be done on Mac, Windows, or Linux as long as you have Node.js installed.
 
 Install the dependencies
@@ -57,8 +54,6 @@ $ npm run build:mac
 $ npm run build:linux
 ```
 ## Known issues
-
----
 1. The Linux executable cannot be built on an ARM64 machine, so it is recommended to build it on an x86-64 machine,
    which will automatically handle the ARM64 architecture when specified.
 2. The Windows executable may display an 'Unknown publisher' message, or the browser may show a false positive message, 
