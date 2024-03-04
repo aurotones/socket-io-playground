@@ -9,13 +9,16 @@ Open-source, cross-platform Socket.io GUI Developer Tool.
 </p>
 
 <pre align="center">
+<b><a href="https://github.com/aurotones/socket-io-playground/releases/latest">Download the latest release</a></b>
+</pre>
+<pre align="center">
    If you like my work, please consider <b><a href="#support-me">supporting me financially</a></b>
 </pre>
 
 ### Features and planned features
 
 - [x] Multiple socket instances
-- [x] Customize queries, headers and authorization options
+- [x] Customize queries, headers, and authorization options
 - [x] Log incoming socket events with supported data types
 - [x] Emit socket event back to the server (string data only)
 - [ ] Socket version selector
@@ -65,10 +68,10 @@ $ npm run build:mac
 $ npm run build:linux
 ```
 ## Known issues
-1. The Linux executable cannot be built on an ARM64 machine, so it is recommended to build it on an x86-64 machine,
+1. The Linux executable cannot be built on an ARM64 machine, so it is recommended to build it on an x86-64 machine
    which will automatically handle the ARM64 architecture when specified.
 2. The Windows executable may display an 'Unknown publisher' message, or the browser may show a false positive message,
-   preventing users from downloading it. Solution for me is to purchase code signing certificate, but it costs me money.
+   preventing users from downloading it. The solution for me is to purchase code signing certificate, but it costs me money.
 
 ## Support me
 <ul>
