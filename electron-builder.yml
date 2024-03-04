@@ -1,0 +1,62 @@
+appId: com.aurotones.socket-io-playground
+productName: Socket.io Client Playground
+directories:
+  buildResources: build
+files:
+  - '!**/.idea/*'
+  - '!**/.github/*'
+  - '!**/.vscode/*'
+  - '!assets/*'
+  - '!src/*'
+  - '!electron.vite.config.{js,ts,mjs,cjs}'
+  - '!{.eslintignore,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
+  - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
+  - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+asarUnpack:
+  - resources/**
+win:
+  executableName: socket-io-playground
+  icon: build/icon.ico
+  artifactName: ${name}-${version}-win-${arch}.${ext}
+  target:
+    - zip
+    - nsis
+nsis:
+  artifactName: ${name}-${version}-win-${arch}-setup.${ext}
+  shortcutName: ${productName}
+  uninstallDisplayName: ${productName}
+  createDesktopShortcut: always
+mac:
+  category: public.app-category.developer-tools
+  icon: build/icon.icns
+  entitlements: build/default.mac.plist
+  entitlementsInherit: build/default.mac.plist
+  hardenedRuntime: true
+  gatekeeperAssess: false
+#  extendInfo:
+#    ElectronTeamID: B4YA4PZW2Q
+#  notarize:
+#    teamId: B4YA4PZW2Q
+#  target:
+#    - dmg
+#  provisioningProfile: build/app.provisionprofile
+mas:
+  type: development
+  category: public.app-category.developer-tools
+  entitlements: build/default.mas.plist
+  icon: build/icon.icns
+dmg:
+  artifactName: ${name}-${version}-macos-${arch}.${ext}
+linux:
+  target:
+    - AppImage
+    - deb
+  category: Development
+  artifactName: ${name}-${version}-linux-${arch}.${ext}
+npmRebuild: false
+publish:
+  provider: github
+  repo: socket-io-playground
+  owner: aurotones
+  releaseType: draft
+  publishAutoUpdate: false
