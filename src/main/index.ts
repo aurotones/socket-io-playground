@@ -1,5 +1,5 @@
 import { join } from "path";
-import { app, shell, screen, session, BrowserWindow, Menu } from "electron";
+import { app, shell, screen, session, BrowserWindow } from "electron";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 import BrowserWindowConstructorOptions = Electron.BrowserWindowConstructorOptions;
 import contextMenu from "electron-context-menu";
