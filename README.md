@@ -55,10 +55,10 @@ $ npm run typecheck
 4. Build to executable
 
 ```bash
-# For Windows to build
+# For Windows
 $ npm run build:win
 
-# For macOS to build
+# For macOS
 $ npm run build:mac
 
 # For Linux 
@@ -74,9 +74,6 @@ $ npm run build:linux
 <ul>
    <li>
       <a href="https://buymeacoffee.com/aurotones" target="_blank">Buy me a coffee</a>
-   </li>
-   <li>
-      BTC: <b>1ArME6NtSzmtu5pWPkTYMUV3ZMugrfZtPs</b>
    </li>
    <li>
       BTC: <b>1ArME6NtSzmtu5pWPkTYMUV3ZMugrfZtPs</b>
