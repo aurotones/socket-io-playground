@@ -1,13 +1,17 @@
 import { join } from "path";
-import { app, shell, screen, session, BrowserWindow } from "electron";
+import { app, shell, screen, session, BrowserWindow, Menu } from "electron";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 import BrowserWindowConstructorOptions = Electron.BrowserWindowConstructorOptions;
+import contextMenu from "electron-context-menu";
 import icon from "../../build/icon.png?asset";
 
 const cspRules = {
     "default-src": ["'self'"],
     "script-src": ["'self'", "app:"],
-    "style-src": ["'self'", "'sha256-UKXP/aEWS2HskKbxlPCyc29F4sH/P9CZ8f3HJTUR16w='"],
+    "style-src": [
+        "'unsafe-inline'",
+        "'self'",
+    ],
     "img-src": ["'self'"],
     "font-src": ["'self'"],
     "connect-src": ["*"],
@@ -70,7 +74,10 @@ async function createWindow(): Promise<void> {
         (details, callback) => {
             if (is.dev){
                 callback({
-                    responseHeaders: details.responseHeaders,
+                    responseHeaders: {
+                        ...details.responseHeaders,
+                        "Access-Control-Allow-Origin": ["*"],
+                    },
                 });
             } else {
                 callback({
@@ -92,6 +99,8 @@ async function createWindow(): Promise<void> {
     } else {
         await mainWindow.loadFile(join(__dirname, "../renderer/index.html"));
     }
+
+    contextMenu();
 }
 
 app.whenReady().then(async () => {
@@ -111,3 +120,20 @@ app.on("web-contents-created",(_e, contents) => {
         event.preventDefault();
     });
 });
+
+// ipcMain.on("show-context-menu",(event) => {
+//     const template: MenuItem[] = [
+//         {
+//             label: 'Menu Item 1',
+//             click: () => {
+//                 event.sender.send('context-menu-command', 'menu-item-1')
+//             }
+//         },
+//         { type: 'separator' },
+//         { label: 'Menu Item 2', type: 'checkbox', checked: true }
+//     ]
+//     const menu = Menu.buildFromTemplate(template)
+//     menu.popup({
+//         window: BrowserWindow.fromWebContents(event.sender),
+//     })
+// })

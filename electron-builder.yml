@@ -3,7 +3,10 @@ productName: Socket.io Client Playground
 directories:
   buildResources: build
 files:
+  - '!**/.idea/*'
+  - '!**/.github/*'
   - '!**/.vscode/*'
+  - '!assets/*'
   - '!src/*'
   - '!electron.vite.config.{js,ts,mjs,cjs}'
   - '!{.eslintignore,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
@@ -30,13 +33,13 @@ mac:
   entitlementsInherit: build/default.mac.plist
   hardenedRuntime: true
   gatekeeperAssess: false
-  extendInfo:
-    ElectronTeamID: B4YA4PZW2Q
-  notarize:
-    teamId: B4YA4PZW2Q
-  target:
-    - dmg
-  provisioningProfile: build/app.provisionprofile
+#  extendInfo:
+#    ElectronTeamID: B4YA4PZW2Q
+#  notarize:
+#    teamId: B4YA4PZW2Q
+#  target:
+#    - dmg
+#  provisioningProfile: build/app.provisionprofile
 mas:
   type: development
   category: public.app-category.developer-tools

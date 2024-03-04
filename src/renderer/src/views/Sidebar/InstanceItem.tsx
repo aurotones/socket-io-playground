@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import Ink from "react-ink";
 import { useDispatch } from "react-redux";
 import colors from 'tailwindcss/colors'
 import InstanceInterface, { InstanceStatus } from "../../interfaces/InstanceInterface";
@@ -43,13 +44,13 @@ export default function InstanceItem(props: Props){
                     value["backgroundColor"] = "#444";
                     break;
                 case InstanceStatus.CONNECTING:
-                    value["backgroundColor"] = colors.blue[600];
+                    value["backgroundColor"] = colors.blue[900];
                     break;
                 case InstanceStatus.CONNECTED:
-                    value["backgroundColor"] = colors.green[600];
+                    value["backgroundColor"] = colors.green[900];
                     break;
                 case InstanceStatus.ERROR:
-                    value["backgroundColor"] = colors.red[600];
+                    value["backgroundColor"] = colors.red[900];
                     break;
             }
         }
@@ -58,13 +59,13 @@ export default function InstanceItem(props: Props){
                 value["borderColor"] = "#444";
                 break;
             case InstanceStatus.CONNECTING:
-                value["borderColor"] = colors.blue[600];
+                value["borderColor"] = colors.blue[700];
                 break;
             case InstanceStatus.CONNECTED:
-                value["borderColor"] = colors.green[600];
+                value["borderColor"] = colors.green[700];
                 break;
             case InstanceStatus.ERROR:
-                value["borderColor"] = colors.red[600];
+                value["borderColor"] = colors.red[700];
                 break;
         }
 
@@ -80,11 +81,12 @@ export default function InstanceItem(props: Props){
 
     return (
         <div
-            className="mt-1 mb-4 px-4 py-2 text-sm cursor-pointer rounded-lg"
+            className="relative mt-1 mb-4 px-4 py-2 text-sm cursor-pointer rounded-lg"
             style={containerStyle}
             onClick={onClick}
         >
             { formatName }
+            <Ink/>
         </div>
     )
 }

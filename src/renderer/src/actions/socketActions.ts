@@ -5,6 +5,7 @@ import { Packet } from "engine.io-parser/build/esm/commons";
 import REDUCER_CONSTANTS from "../enums/REDUCER_CONSTANTS";
 import InstanceInterface, { InstanceStatus } from "../interfaces/InstanceInterface";
 import MessageInterface, { MessageStatus } from "../interfaces/MessageInterface";
+import { store } from "../store";
 
 export default class socketActions {
     static createInstance(){
@@ -15,6 +16,7 @@ export default class socketActions {
             opts: {
                 retries: 1,
                 forceNew: true,
+                path: "/socket.io",
             },
             status: InstanceStatus.IDLE,
             options: {
@@ -72,6 +74,14 @@ export default class socketActions {
         try {
             let message = null;
             let parsed = null;
+            let playSound = false;
+            store.getState().main.instances.find((instance) => {
+                if (instance.id === instanceId){
+                    playSound = instance.options.playSound;
+                    return true;
+                }
+                return false;
+            });
             switch (typeof packet.data){
                 case "string":
                     parsed = JSON.parse(packet.data);
@@ -100,6 +110,9 @@ export default class socketActions {
                     status: MessageStatus.SUCCESS,
                 } satisfies MessageInterface;
             }
+            if (playSound){
+                playNotificationAudio().then();
+            }
             return {
                 type: REDUCER_CONSTANTS.MESSAGE_ON_RECEIVE,
                 payload: message,
@@ -118,5 +131,18 @@ export default class socketActions {
             type: REDUCER_CONSTANTS.MESSAGE_CLEAR,
             payload: id,
         }
+    }
+}
+
+export async function playNotificationAudio(){
+    try {
+        const audio = new Audio("/assets/notification.wav");
+        audio.volume = 0.2;
+        audio.addEventListener("ended",() => {
+            audio.remove();
+        });
+        await audio.play();
+    } catch (e){
+        console.error(e);
     }
 }

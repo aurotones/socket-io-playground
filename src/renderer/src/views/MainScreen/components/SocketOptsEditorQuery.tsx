@@ -24,6 +24,10 @@ export default function SocketOptsEditorQuery(props: Props){
         props.currentInstance?.opts,
     ]);
 
+    const path = useMemo(() => {
+        return props.currentInstance?.opts?.path;
+    },[props.currentInstance?.opts?.path]);
+
     const queries = useMemo<{
         name: string,
         value: string,
@@ -75,10 +79,25 @@ export default function SocketOptsEditorQuery(props: Props){
         }));
     }
 
+    const setPath = (path: string) => {
+        dispatch(socketActions.setInstanceOpts({
+            ...props.currentInstance.opts,
+            path,
+        }));
+    }
+
     return (
         <div>
             <span className="text-white opacity-50 text-xs">
-                URL Preview:
+                Path:
+            </span>
+            <Input
+                className="mt-1 mb-3"
+                value={path}
+                onChangeText={setPath}
+            />
+            <span className="text-white opacity-50 text-xs">
+                URL Query Preview:
             </span>
             <Input
                 className="mt-1 mb-3"

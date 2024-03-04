@@ -30,6 +30,10 @@ html, body {
     box-sizing: border-box;
 }
 
+.main {
+    min-width: 0;
+}
+
 .liner {
     height: 1px;
     background: #333;
@@ -42,8 +46,12 @@ html, body {
 }
 
 .cm-theme {
+    font-size: 11px;
     .cm-gutters {
         padding: 0 5px;
         user-select: none;
+    }
+    pre {
+        word-break: break-word;
     }
 }

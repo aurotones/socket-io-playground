@@ -23,6 +23,7 @@ export default function SubmitButton(props: Props){
                 break;
             case InstanceStatus.CONNECTED:
                 label = "Disconnect";
+                backgroundColor = colors.red[600];
                 break;
             case InstanceStatus.ERROR:
                 label = "Reconnect";

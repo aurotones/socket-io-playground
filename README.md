@@ -19,9 +19,9 @@ Open-source, cross-platform Socket.io GUI Developer Tool.
 - [x] Log incoming socket events with supported data types
 - [x] Emit socket event back to the server (string data only)
 - [ ] Socket version selector
-- [ ] Advanced socket option customization
-- [ ] Copy & Paste socket options
-- [ ] Play sound on incoming socket event
+- [x] Raw socket option customization
+- [x] Copy socket options
+- [x] Play sound on incoming socket event
 - [ ] Save instances and remember the options on the next launch
 
 ### Supported data types

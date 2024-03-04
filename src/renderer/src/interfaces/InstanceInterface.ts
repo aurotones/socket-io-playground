@@ -19,6 +19,7 @@ interface InstanceInterface {
         preserveMessages?: boolean,
         limitMessages?: number,
         scrollToEnd?: boolean,
+        playSound?: boolean,
     },
 }
 

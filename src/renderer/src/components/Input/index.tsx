@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import {useMemo} from "react";
+import { useMemo } from "react";
 import usePropsExcept from "../../hooks/usePropsExcept";
 
 interface Props {

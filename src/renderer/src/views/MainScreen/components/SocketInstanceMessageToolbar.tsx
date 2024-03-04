@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import InstanceInterface from "../../../interfaces/InstanceInterface";
-import socketActions from "../../../actions/socketActions";
+import socketActions, {playNotificationAudio} from "../../../actions/socketActions";
 
 interface Props {
     currentInstance: InstanceInterface,
@@ -22,6 +22,15 @@ export default function SocketInstanceMessageToolbar(props: Props){
         dispatch(socketActions.setOptions({
             ...props.currentInstance.options,
             scrollToEnd: !scrollToEnd,
+        }));
+    }
+
+    const playSoundHandler = () => {
+        playNotificationAudio().then();
+        const playSound = props.currentInstance.options?.playSound;
+        dispatch(socketActions.setOptions({
+            ...props.currentInstance.options,
+            playSound: !playSound,
         }));
     }
 
@@ -61,6 +70,18 @@ export default function SocketInstanceMessageToolbar(props: Props){
                     onClick={snapHandler}
                 >
                     Auto scroll
+                </span>
+                <div className="liner-v mx-4"/>
+                <input
+                    type="checkbox"
+                    checked={props.currentInstance.options?.playSound}
+                    onChange={playSoundHandler}
+                />
+                <span
+                    className="ml-2 opacity-80"
+                    onClick={playSoundHandler}
+                >
+                    Play sound
                 </span>
                 {/*<div className="liner-v mx-4"/>*/}
                 {/*<span className="opacity-80">*/}

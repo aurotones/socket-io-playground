@@ -2,7 +2,7 @@ import { contextBridge } from "electron";
 import { decodePacket } from "engine.io-parser";
 
 const api = {
-    decodePacket: (encodedData: string) => {
+    "decodePacket": (encodedData: string) => {
         return decodePacket(encodedData);
     },
 };

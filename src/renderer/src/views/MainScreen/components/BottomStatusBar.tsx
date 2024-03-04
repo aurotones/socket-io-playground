@@ -60,15 +60,6 @@ export default function BottomStatusBar(props: Props){
                 >
                     Star
                 </GitHubButton>
-                <div className="w-2"/>
-                <GitHubButton
-                    href="https://github.com/aurotones/socket-io-playground"
-                    data-icon="octicon-repo-forked"
-                    data-show-count={true}
-                    aria-label="Fork aurotones/socket-io-playground on GitHub"
-                >
-                    Fork
-                </GitHubButton>
             </div>
         </div>
     )

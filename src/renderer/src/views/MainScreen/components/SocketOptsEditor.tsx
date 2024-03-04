@@ -4,6 +4,7 @@ import Tabs from "../../../components/Tabs";
 import SocketOptsEditorQuery from "./SocketOptsEditorQuery";
 import SocketOptsEditorAuth from "./SocketOptsEditorAuth";
 import SocketOptsEditorHeader from "./SocketOptsEditorHeader";
+import SocketOptsRaw from "./SocketOptsRaw";
 
 interface Props {
     currentInstance: InstanceInterface,
@@ -32,6 +33,12 @@ export default function SocketOptsEditor(props: Props){
                         currentInstance={props.currentInstance}
                     />
                 );
+            case 3:
+                return (
+                    <SocketOptsRaw
+                        currentInstance={props.currentInstance}
+                    />
+                );
             default:
                 return null;
         }
@@ -46,7 +53,8 @@ export default function SocketOptsEditor(props: Props){
                 tabs={[
                     "Query",
                     "Auth",
-                    "Headers"
+                    "Headers",
+                    "Raw",
                 ]}
                 value={tabIndex}
                 onTabChange={setTabIndex}

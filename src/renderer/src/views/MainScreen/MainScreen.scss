@@ -13,6 +13,10 @@
             border-radius: 0.5rem;
             box-sizing: border-box;
         }
+        input::placeholder {
+            color: #444;
+            opacity: 1;
+        }
         &.disabled {
             input {
                 color: #555;
