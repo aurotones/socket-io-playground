@@ -1,6 +1,6 @@
 {
   "name": "socket-io-playground",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Socket.io client playground for developers",
   "main": "./out/main/index.js",
   "author": "Uuganbayar Otgonbayar <aurotones@gmail.com>",
