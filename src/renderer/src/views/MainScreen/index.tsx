@@ -101,6 +101,7 @@ export default function MainScreen(){
             <div className="flex flex-1" style={{ height: 0 }}>
                 {
                     currentInstance.status === InstanceStatus.IDLE ||
+                    currentInstance.status === InstanceStatus.CONNECTING ||
                     currentInstance.status === InstanceStatus.ERROR ? (
                         <SocketOptsEditor
                             currentInstance={currentInstance}

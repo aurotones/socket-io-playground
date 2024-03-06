@@ -28,6 +28,7 @@ html, body {
 
 * {
     box-sizing: border-box;
+    outline: none;
 }
 
 .main {
@@ -54,4 +55,20 @@ html, body {
     pre {
         word-break: break-word;
     }
+}
+
+.Modal {
+    background-color: #222;
+}
+
+.Overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(22, 22, 22, 0.8);
 }

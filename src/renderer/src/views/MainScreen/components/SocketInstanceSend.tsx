@@ -38,11 +38,8 @@ export default function SocketInstanceSend(props: Props){
     return (
         <div className="p-4">
             <div className="flex items-center">
-                <div
-                    style={{ flex: 1 }}
-                    className="text-sm"
-                >
-                    Type:
+                <div style={{ flex: 1, fontSize: 13 }}>
+                    Event name:
                 </div>
                 <div style={{ flex: 6 }}>
                     <Input
@@ -53,11 +50,8 @@ export default function SocketInstanceSend(props: Props){
             </div>
             <div className="h-4"/>
             <div className="flex items-center">
-                <div
-                    style={{ flex: 1 }}
-                    className="text-sm"
-                >
-                    Message:
+                <div style={{ flex: 1, fontSize: 13 }}>
+                    Message (string):
                 </div>
                 <div style={{ flex: 6 }}>
                     <Input

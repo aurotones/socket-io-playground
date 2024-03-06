@@ -46,12 +46,20 @@ export default function BottomStatusBar(props: Props){
 
     return (
         <div className="flex px-4 py-2 text-xs bottom-status-bar items-center">
-            <div className="opacity-80" style={{ color: status.labelColor }}>
-                <span>Status: { status.label }</span>
+            <div
+                className="opacity-80"
+                style={{ color: status.labelColor }}
+            >
+                <span>
+                    Status: { status.label }
+                </span>
                 { props.currentInstance.reason ? renderReason() : null }
             </div>
             <div className="flex-1"/>
-            <div className="flex justify-center" style={{ height: 21 }}>
+            <div
+                className="flex justify-center"
+                style={{ height: 21 }}
+            >
                 <GitHubButton
                     href="https://github.com/aurotones/socket-io-playground"
                     data-icon="octicon-star"

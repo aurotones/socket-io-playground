@@ -90,7 +90,7 @@ export default function SocketOptsRaw(props: Props){
             </span>
             <div>
                 <CodeMirror
-                    className="mt-1 rounded-lg overflow-hidden"
+                    className="mt-1 overflow-hidden"
                     style={{
                         border: "1px solid #333",
                     }}

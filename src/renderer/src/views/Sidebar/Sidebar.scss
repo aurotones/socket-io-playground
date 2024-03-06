@@ -2,4 +2,36 @@
     width: 300px;
     height: 100%;
     border-right: 1px solid #ffffff11;
+    .instance {
+        display: flex;
+        align-items: center;
+        .status {
+            margin-right: 10px;
+            width: 8px;
+            height: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+        }
+        .actions {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 0;
+            bottom: 0;
+            right: 10px;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.1s all linear;
+        }
+        &:hover {
+            .actions {
+                opacity: 1;
+                pointer-events: all;
+                transition-duration: 0s;
+            }
+        }
+    }
 }

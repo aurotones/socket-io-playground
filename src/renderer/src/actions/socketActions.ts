@@ -31,6 +31,13 @@ export default class socketActions {
         }
     }
 
+    static removeInstance(id: string){
+        return {
+            type: REDUCER_CONSTANTS.SOCKET_REMOVE_INSTANCE,
+            payload: { id },
+        }
+    }
+
     static changeActiveInstance(index: number){
         return {
             type: REDUCER_CONSTANTS.SOCKET_CHANGE_ACTIVE_INSTANCE,

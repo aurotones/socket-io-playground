@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import InstanceInterface from "../../../interfaces/InstanceInterface";
+import InstanceInterface, {InstanceStatus} from "../../../interfaces/InstanceInterface";
 import Tabs from "../../../components/Tabs";
 import SocketOptsEditorQuery from "./SocketOptsEditorQuery";
 import SocketOptsEditorAuth from "./SocketOptsEditorAuth";
@@ -48,7 +48,12 @@ export default function SocketOptsEditor(props: Props){
     ]);
 
     return (
-        <div className="flex-1">
+        <div
+            className="flex-1"
+            style={{
+                opacity: props.currentInstance.status === InstanceStatus.CONNECTING ? 0.3 : 1,
+            }}
+        >
             <Tabs
                 tabs={[
                     "Query",

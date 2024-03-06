@@ -11,7 +11,7 @@ interface Props {
 
 export default function Button(props: Props){
     const classNames = useMemo(() => {
-        let value = "relative px-4 py-2 text-sm text-center cursor-pointer rounded-lg select-none";
+        let value = "relative px-4 py-2 text-sm text-center cursor-pointer select-none";
         if (props.disabled){
             value += " opacity-30 pointer-events-none"
         }

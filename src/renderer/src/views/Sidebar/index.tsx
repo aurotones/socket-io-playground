@@ -23,13 +23,13 @@ export default function Sidebar(){
             </div>
             <div className="liner"/>
             <div
-                className="px-4 py-2 flex-1"
+                className="py-2 flex-1"
                 style={{
                     height: 0,
                     overflowY: "auto",
                 }}
             >
-                <span className="text-white opacity-50 text-xs">
+                <span className="px-4 text-white opacity-50 text-xs">
                     Instances:
                 </span>
                 {

@@ -62,7 +62,7 @@ export default function SocketMessage(props: Props){
         try {
             const message = JSON.stringify(msg,null,2);
             return (
-                <div className="rounded-lg overflow-hidden">
+                <div className="overflow-hidden">
                     <CodeMirror
                         editable={false}
                         value={message}
