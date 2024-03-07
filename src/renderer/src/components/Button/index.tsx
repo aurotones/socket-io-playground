@@ -1,17 +1,23 @@
 import { useMemo } from "react";
 import Ink from "react-ink";
+import classNames from "classnames";
+import "./Button.scss";
 
 interface Props {
+    icon?: boolean,
     className?: string,
     disabled?: boolean,
     style?: any,
     onClick: () => void,
-    children: string,
+    children: any,
 }
 
 export default function Button(props: Props){
-    const classNames = useMemo(() => {
-        let value = "relative px-4 py-2 text-sm text-center cursor-pointer select-none";
+    const classes = useMemo(() => {
+        let value = classNames("ui-button relative text-sm text-center cursor-pointer select-none",{
+            "px-4": !props.icon,
+            "icon": props.icon,
+        });
         if (props.disabled){
             value += " opacity-30 pointer-events-none"
         }
@@ -26,7 +32,7 @@ export default function Button(props: Props){
 
     return (
         <div
-            className={classNames}
+            className={classes}
             style={props.style}
             onClick={props.onClick}
         >
@@ -34,4 +40,8 @@ export default function Button(props: Props){
             <Ink/>
         </div>
     )
+}
+
+Button.defaultProps = {
+    icon: false,
 }

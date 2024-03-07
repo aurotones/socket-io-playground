@@ -1,4 +1,5 @@
-import {useMemo, useState} from "react";
+import { useMemo, useState } from "react";
+import { Save, Edit, Trash2 } from "react-feather";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 
@@ -58,7 +59,7 @@ export default function QueryInput(props: Props){
     return (
         <div>
             <div className="flex mt-1 mb-3">
-                <div style={{ flex: 1 }}>
+                <div style={{ width: 320 }}>
                     <Input
                         value={name}
                         placeholder="Name"
@@ -75,21 +76,27 @@ export default function QueryInput(props: Props){
                 </div>
                 <div className="w-3"/>
                 <Button
+                    icon={true}
                     disabled={disableButton}
                     className="bg-blue-600"
                     onClick={props.new ? save : edit}
                 >
-                    { props.new ? "Save" : "Edit" }
+                    {
+                        props.new ? (
+                            <Save size={18}/>
+                        ) : <Edit size={18}/>
+                    }
                 </Button>
                 {
                     props.new ? null : (
                         <>
                             <div className="w-3"/>
                             <Button
+                                icon={true}
                                 className="bg-red-600"
                                 onClick={props.onRemove}
                             >
-                                Remove
+                                <Trash2 size={18}/>
                             </Button>
                         </>
                     )

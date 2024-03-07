@@ -78,7 +78,13 @@ export default function MainScreen(){
     }
 
     if (!currentInstance){
-        return null;
+        return (
+            <div className="main flex flex-col flex-1 justify-center items-center">
+                <span className="font-bold text-4xl opacity-20">
+                    Create or select an instance from the sidebar
+                </span>
+            </div>
+        );
     }
 
     return (
@@ -90,7 +96,7 @@ export default function MainScreen(){
                     placeholder="http://example:8000"
                     onChangeText={socketUriHandler}
                 />
-                <div className="w-4"/>
+                <div className="w-3"/>
                 <SubmitButton
                     disabled={disableSubmitButton}
                     currentInstance={currentInstance}

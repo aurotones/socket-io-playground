@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import {useEffect, useMemo, useState} from "react";
 import colors from "tailwindcss/colors";
 import GitHubButton from "react-github-btn";
 import InstanceInterface, { InstanceStatus } from "../../../interfaces/InstanceInterface";
@@ -8,6 +8,13 @@ interface Props {
 }
 
 export default function BottomStatusBar(props: Props){
+    const [versionStr, setVersionString] = useState("");
+
+    useEffect(() => {
+        window.api.getAppInfo().then((appInfo) => {
+            setVersionString(`v${appInfo.version} ${appInfo.platform} (${appInfo.arch})`);
+        });
+    },[]);
 
     const status = useMemo(() => {
         let label = null;
@@ -56,9 +63,12 @@ export default function BottomStatusBar(props: Props){
                 { props.currentInstance.reason ? renderReason() : null }
             </div>
             <div className="flex-1"/>
+            <div className="mr-3 opacity-80">
+                { versionStr }
+            </div>
             <div
                 className="flex justify-center"
-                style={{ height: 21 }}
+                style={{height: 21}}
             >
                 <GitHubButton
                     href="https://github.com/aurotones/socket-io-playground"

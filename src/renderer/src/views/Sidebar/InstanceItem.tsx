@@ -1,4 +1,4 @@
-import {useMemo, useState} from "react";
+import { useMemo, useState } from "react";
 import Ink from "react-ink";
 import Modal from "react-modal";
 import { Trash2 } from "react-feather";
@@ -6,8 +6,8 @@ import { useDispatch } from "react-redux";
 import colors from "tailwindcss/colors";
 import InstanceInterface, { InstanceStatus } from "../../interfaces/InstanceInterface";
 import socketActions from "../../actions/socketActions";
-import Button from "../../components/Button";
 import socket from "../../socket";
+import Button from "../../components/Button";
 
 interface Props {
     instance: InstanceInterface,
@@ -47,7 +47,7 @@ export default function InstanceItem(props: Props){
             case InstanceStatus.ERROR:
                 return colors.red[600];
             default:
-                return "#555";
+                return "#555555";
         }
     },[
         props.instance.status,
@@ -85,9 +85,15 @@ export default function InstanceItem(props: Props){
             <div
                 className="status"
                 style={{
-                    background: statusColor,
+                    background: statusColor + "44",
                 }}
-            />
+            >
+                <div
+                    style={{
+                        background: statusColor,
+                    }}
+                />
+            </div>
             <span style={{ fontSize: 13 }}>
                 { formatName }
             </span>
@@ -95,33 +101,37 @@ export default function InstanceItem(props: Props){
             <div className="actions" onClick={removeInstance}>
                 <Trash2 color="#ff5555" size={14}/>
             </div>
-            <Modal
-                isOpen={removeModal}
-                onRequestClose={cancel}
-                className="Modal"
-                overlayClassName="Overlay"
-            >
-                <div className="p-5 text-sm">
-                    <div>
-                        Are you sure you want to delete this instance?
-                    </div>
-                    <div className="mt-5 flex">
-                        <div className="flex-1"/>
-                        <Button
-                            onClick={cancel}
-                        >
-                            Cancel
-                        </Button>
-                        <div className="w-2"/>
-                        <Button
-                            onClick={removeConfirm}
-                            style={{ backgroundColor: "red" }}
-                        >
-                            Delete
-                        </Button>
-                    </div>
-                </div>
-            </Modal>
+            {
+                removeModal ? (
+                    <Modal
+                        isOpen={true}
+                        onRequestClose={cancel}
+                        className="Modal"
+                        overlayClassName="Overlay"
+                    >
+                        <div className="p-5 text-sm">
+                            <div style={{ width: 600 }} className="pb-3">
+                                Are you sure you want to delete this instance?
+                            </div>
+                            <div className="mt-5 flex">
+                                <div className="flex-1"/>
+                                <Button
+                                    onClick={cancel}
+                                >
+                                    Cancel
+                                </Button>
+                                <div className="w-3"/>
+                                <Button
+                                    onClick={removeConfirm}
+                                    className="bg-red-600"
+                                >
+                                    Delete
+                                </Button>
+                            </div>
+                        </div>
+                    </Modal>
+                ) : null
+            }
         </div>
     )
 }

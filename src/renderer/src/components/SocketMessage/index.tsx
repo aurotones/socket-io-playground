@@ -6,6 +6,7 @@ import { tags as t } from "@lezer/highlight";
 import colors from "tailwindcss/colors";
 import formatTime from "../../utils/formatTime";
 import MessageInterface, { MessageStatus } from "../../interfaces/MessageInterface";
+import {EditorView} from "@codemirror/view";
 
 interface Props {
     data: MessageInterface,
@@ -69,6 +70,7 @@ export default function SocketMessage(props: Props){
                         theme={myTheme}
                         extensions={[
                             json(),
+                            EditorView.lineWrapping,
                         ]}
                         basicSetup={{
                             lineNumbers: false,

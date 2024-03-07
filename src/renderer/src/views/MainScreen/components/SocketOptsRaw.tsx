@@ -10,6 +10,7 @@ import { tags as t } from "@lezer/highlight";
 import InstanceInterface from "../../../interfaces/InstanceInterface";
 import Button from "../../../components/Button";
 import socketActions from "../../../actions/socketActions";
+import {Save} from "react-feather";
 
 interface Props {
     currentInstance: InstanceInterface,
@@ -107,21 +108,22 @@ export default function SocketOptsRaw(props: Props){
                         lineNumbers: true,
                     }}
                 />
-                <div className="h-5"/>
+                <div className="h-3"/>
                 <div className="flex">
                     <Button
-                        className="bg-blue-600"
+                        className="bg-white text-black"
                         onClick={copyOptions}
                     >
                         Copy to clipboard
                     </Button>
                     <div className="flex-1"/>
                     <Button
+                        icon={true}
                         disabled={!hasChanges}
                         className="bg-blue-600"
                         onClick={save}
                     >
-                        Save
+                        <Save size={18}/>
                     </Button>
                 </div>
             </div>

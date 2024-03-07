@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import InstanceInterface from "../../../interfaces/InstanceInterface";
 import socketActions, {playNotificationAudio} from "../../../actions/socketActions";
+import {Trash2} from "react-feather";
 
 interface Props {
     currentInstance: InstanceInterface,
@@ -26,8 +27,10 @@ export default function SocketInstanceMessageToolbar(props: Props){
     }
 
     const playSoundHandler = () => {
-        playNotificationAudio().then();
         const playSound = props.currentInstance.options?.playSound;
+        if (!playSound){
+            playNotificationAudio().then();
+        }
         dispatch(socketActions.setOptions({
             ...props.currentInstance.options,
             playSound: !playSound,
@@ -42,10 +45,10 @@ export default function SocketInstanceMessageToolbar(props: Props){
         <div className="message-toolbar select-none">
             <div className="flex px-4 py-2 text-xs items-center cursor-pointer">
                 <span
-                    className="ml-1 opacity-80"
+                    className="opacity-80"
                     onClick={clearMessage}
                 >
-                    Clear
+                    <Trash2 size={14}/>
                 </span>
                 <div className="liner-v mx-4"/>
                 <input

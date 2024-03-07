@@ -1,9 +1,11 @@
 import { join } from "path";
-import { app, shell, screen, session, BrowserWindow } from "electron";
+import { app, shell, screen, session, ipcMain, BrowserWindow } from "electron";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 import BrowserWindowConstructorOptions = Electron.BrowserWindowConstructorOptions;
 import contextMenu from "electron-context-menu";
 import icon from "../../build/icon.png?asset";
+import * as os from "os";
+import CHANNELS from "../constants/CHANNELS";
 
 const cspRules = {
     "default-src": ["'self'"],
@@ -119,4 +121,12 @@ app.on("web-contents-created",(_e, contents) => {
     contents.on("will-navigate",(event) => {
         event.preventDefault();
     });
+});
+
+ipcMain.handle(CHANNELS.GET_APP_INFO,() => {
+    return {
+        version: app.getVersion(),
+        arch: os.arch(),
+        platform: process.platform,
+    }
 });

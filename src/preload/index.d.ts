@@ -6,6 +6,11 @@ declare global {
         electron: ElectronAPI
         api: {
             decodePacket: (data: any) => Packet,
+            getAppInfo: () => Promise<{
+                version: string,
+                arch: string,
+                platform: string,
+            }>,
         }
     }
 }
