@@ -33,13 +33,13 @@ mac:
   entitlementsInherit: build/default.mac.plist
   hardenedRuntime: true
   gatekeeperAssess: false
-  extendInfo:
-    ElectronTeamID: B4YA4PZW2Q
-  notarize:
-    teamId: B4YA4PZW2Q
   target:
     - dmg
-  provisioningProfile: build/app.provisionprofile
+#  extendInfo:
+#    ElectronTeamID: B4YA4PZW2Q
+#  notarize:
+#    teamId: B4YA4PZW2Q
+#  provisioningProfile: build/app.provisionprofile
 mas:
   type: development
   category: public.app-category.developer-tools

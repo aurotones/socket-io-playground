@@ -15,8 +15,9 @@ export default class socketActions {
             uri: "",
             opts: {
                 retries: 1,
-                forceNew: true,
                 path: "/socket.io",
+                reconnection: false,
+                timeout: 10000,
             },
             status: InstanceStatus.IDLE,
             options: {

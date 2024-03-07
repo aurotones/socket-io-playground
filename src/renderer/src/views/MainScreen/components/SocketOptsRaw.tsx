@@ -50,11 +50,11 @@ export default function SocketOptsRaw(props: Props){
     },[]);
 
     const hasChanges = useMemo(() => {
-        return initValueHash !== MD5(options).toString()
+        return initValueHash !== MD5(options).toString();
     },[
         initValueHash,
         options,
-    ])
+    ]);
 
     const checkValue = () => {
         try {
@@ -70,10 +70,8 @@ export default function SocketOptsRaw(props: Props){
     const save = () => {
         const lintedOptions = checkValue();
         if (lintedOptions){
-            console.log("Linted value:", lintedOptions);
-            dispatch(socketActions.setInstanceOpts({
-                ...lintedOptions,
-            }));
+            dispatch(socketActions.setInstanceOpts(lintedOptions));
+            setInitValueHash(MD5(JSON.stringify(props.currentInstance?.opts,null,2)).toString());
         }
     }
 

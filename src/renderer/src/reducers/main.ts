@@ -92,7 +92,7 @@ export default function (state = initialState, action: ReducerAction){
         case REDUCER_CONSTANTS.SOCKET_SET_OPTS:
             if (typeof state.activeInstance === "number"){
                 const instances = state.instances.slice();
-                instances.forEach((instance, i) => {
+                instances.find((instance, i) => {
                     if (state.activeInstance === i){
                         instance.options = action.payload;
                         return true;

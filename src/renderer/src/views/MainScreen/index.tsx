@@ -90,12 +90,20 @@ export default function MainScreen(){
     return (
         <div className="main flex flex-col flex-1">
             <div className="flex p-4">
-                <Input
-                    value={currentInstance.uri}
-                    disabled={disableInput}
-                    placeholder="http://example:8000"
-                    onChangeText={socketUriHandler}
-                />
+                <form
+                    className="flex-1"
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        submit();
+                    }}
+                >
+                    <Input
+                        value={currentInstance.uri}
+                        disabled={disableInput}
+                        placeholder="http://example:8000"
+                        onChangeText={socketUriHandler}
+                    />
+                </form>
                 <div className="w-3"/>
                 <SubmitButton
                     disabled={disableSubmitButton}

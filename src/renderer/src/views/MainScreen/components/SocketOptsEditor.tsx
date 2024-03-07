@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import {useCallback, useMemo, useState} from "react";
 import InstanceInterface, {InstanceStatus} from "../../../interfaces/InstanceInterface";
 import Tabs from "../../../components/Tabs";
 import SocketOptsEditorQuery from "./SocketOptsEditorQuery";
@@ -12,6 +12,10 @@ interface Props {
 
 export default function SocketOptsEditor(props: Props){
     const [tabIndex, setTabIndex] = useState(0);
+
+    const loading = useMemo(() => {
+        return props.currentInstance?.status === InstanceStatus.CONNECTING;
+    },[props.currentInstance?.status]);
 
     const renderTabView = useCallback(() => {
         switch (tabIndex){
@@ -51,13 +55,14 @@ export default function SocketOptsEditor(props: Props){
         <div
             className="flex-1"
             style={{
-                opacity: props.currentInstance.status === InstanceStatus.CONNECTING ? 0.3 : 1,
+                opacity: loading ? 0.4 : 1,
+                pointerEvents: loading ? "none" : "auto",
             }}
         >
             <Tabs
                 tabs={[
-                    "Query",
-                    "Auth",
+                    "Path & Queries",
+                    "Authorization",
                     "Headers",
                     "Raw",
                 ]}
