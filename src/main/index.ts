@@ -1,11 +1,12 @@
+import * as os from "os";
 import { join } from "path";
 import { app, shell, screen, session, ipcMain, BrowserWindow } from "electron";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
-import BrowserWindowConstructorOptions = Electron.BrowserWindowConstructorOptions;
 import contextMenu from "electron-context-menu";
+import { autoUpdater } from "electron-updater";
 import icon from "../../build/icon.png?asset";
-import * as os from "os";
 import CHANNELS from "../constants/CHANNELS";
+import BrowserWindowConstructorOptions = Electron.BrowserWindowConstructorOptions;
 
 const cspRules = {
     "default-src": ["'self'"],
@@ -20,6 +21,9 @@ const cspRules = {
     "object-src": ["'none'"],
     "frame-src": ["'none'"],
 };
+
+let mainWindow: BrowserWindow | null = null;
+autoUpdater.autoDownload = false;
 
 async function createWindow(): Promise<void> {
     const { width, height } = screen.getPrimaryDisplay().workAreaSize;
@@ -50,10 +54,10 @@ async function createWindow(): Promise<void> {
             break;
     }
 
-    const mainWindow = new BrowserWindow(options);
+    mainWindow = new BrowserWindow(options);
 
     mainWindow.on("ready-to-show",() => {
-        mainWindow.show();
+        mainWindow?.show();
     });
 
     mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -103,6 +107,7 @@ async function createWindow(): Promise<void> {
     }
 
     contextMenu();
+
 }
 
 app.whenReady().then(async () => {
@@ -111,6 +116,7 @@ app.whenReady().then(async () => {
         optimizer.watchWindowShortcuts(window);
     });
     await createWindow();
+    await autoUpdater.checkForUpdatesAndNotify();
 });
 
 app.on("window-all-closed",() => {
@@ -121,6 +127,28 @@ app.on("web-contents-created",(_e, contents) => {
     contents.on("will-navigate",(event) => {
         event.preventDefault();
     });
+});
+
+autoUpdater.on("checking-for-update",() => {
+    console.log("Checking for update...");
+})
+autoUpdater.on("update-available",() => {
+    console.log("Update available.");
+})
+autoUpdater.on("update-not-available",() => {
+    console.log("Update not available.");
+})
+autoUpdater.on("error",(err) => {
+    console.log("Error in auto-updater. " + err);
+})
+autoUpdater.on("download-progress",(progressObj) => {
+    let log_message = "Download speed: " + progressObj.bytesPerSecond;
+    log_message = log_message + " - Downloaded " + progressObj.percent + "%";
+    log_message = log_message + " (" + progressObj.transferred + "/" + progressObj.total + ")";
+    console.log(log_message);
+})
+autoUpdater.on("update-downloaded",() => {
+    console.log("Update downloaded");
 });
 
 ipcMain.handle(CHANNELS.GET_APP_INFO,() => {
