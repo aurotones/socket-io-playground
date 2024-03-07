@@ -35,11 +35,11 @@ mac:
   gatekeeperAssess: false
   target:
     - dmg
-#  extendInfo:
-#    ElectronTeamID: B4YA4PZW2Q
-#  notarize:
-#    teamId: B4YA4PZW2Q
-#  provisioningProfile: build/app.provisionprofile
+  extendInfo:
+    ElectronTeamID: B4YA4PZW2Q
+  notarize:
+    teamId: B4YA4PZW2Q
+  provisioningProfile: build/app.provisionprofile
 mas:
   type: development
   category: public.app-category.developer-tools
