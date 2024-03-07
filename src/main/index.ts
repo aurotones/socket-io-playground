@@ -56,8 +56,9 @@ async function createWindow(): Promise<void> {
 
     mainWindow = new BrowserWindow(options);
 
-    mainWindow.on("ready-to-show",() => {
+    mainWindow.on("ready-to-show",async () => {
         mainWindow?.show();
+        await autoUpdater.checkForUpdatesAndNotify();
     });
 
     mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -107,7 +108,6 @@ async function createWindow(): Promise<void> {
     }
 
     contextMenu();
-
 }
 
 app.whenReady().then(async () => {
@@ -116,7 +116,6 @@ app.whenReady().then(async () => {
         optimizer.watchWindowShortcuts(window);
     });
     await createWindow();
-    await autoUpdater.checkForUpdatesAndNotify();
 });
 
 app.on("window-all-closed",() => {
