@@ -92,8 +92,7 @@ jobs:
           encodedString: ${{ secrets.PROVISION_PROFILE_FILE_BASE64 }}
       - name: build
         run: |
-          npm run publish:mac-x86
-          npm run publish:mac-arm
+          npm run publish:mac
 
   build_on_win:
     runs-on: windows-latest
@@ -109,5 +108,4 @@ jobs:
         run: npm install
       - name: build
         run: |
-          npm run publish:win-x86
-          npm run publish:win-arm
+          npm run publish:win
